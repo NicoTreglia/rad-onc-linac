@@ -1,0 +1,99 @@
+<template>
+  <b-container class="mx-auto">
+    <StatusAdminItem class="col-8 font-weight" v-for="item in NetworksObj[this.$route.params.ad]" :status="item" :key="item.key"/>
+     <b-row v-if="State!=''">
+      <b-col class="rounded bg-danger col-12 text-light">
+        <h4>
+          UPDATING:<br/>
+          <Strong>Delivery Network</Strong> : {{DN.substring(2)}} <br/>
+          <Strong>Machine</Strong> : {{Device}} <br/>
+          <Strong>New Status</Strong> : {{State}} <br/>
+        </h4>
+      </b-col>
+    </b-row>
+    <b-row class="p-3"> 
+        <!-- Selecting Delivery Network -->
+      <b-dd-header>
+        First, select your <strong>Delivery Network</strong>
+      </b-dd-header>
+      <b-select v-model="DN">
+        <option disabled value="">Please select one</option>
+        <option v-for="(item, i) in NetworksObj" :key="item.Key">{{i}}|{{item['.key']}}</option>
+      </b-select>   
+    </b-row>
+    <!-- Once Network is choosen, Selecting Linac -->
+    <b-row v-if="DN!=''" class="p-3">  
+      <b-dd-header>
+        Second, select your <strong>Machine</strong>
+      </b-dd-header> 
+      <b-select v-model="Device">
+        <option disabled value="">Please select one</option>
+        <option v-if="x.Name!=''" v-for="x in NetworksObj[DN[0]]" :key="x.key">{{x.Name}}</option>     
+      </b-select>
+    </b-row>
+    <!-- Once Network is choosen, and once Linac is choosen, Selecting Status -->
+    <b-row v-if="Device!=''" class="p-3">
+      <b-dd-header>
+        Third, select it's <strong>Status</strong>
+      </b-dd-header>
+      <b-select v-model="State">
+        <option disabled value="">Please select one</option>
+        <option v-for="status in Status" :key="status.key">{{status.value}}|{{status.name}}</option>
+      </b-select> 
+    </b-row>
+    <b-row v-if="State!=''">
+      <b-col class="rounded bg-danger col-12 text-light">
+        <h4>
+          UPDATING:<br/>
+          <Strong>Delivery Network</Strong> : {{DN.substring(2)}} <br/>
+          <Strong>Machine</Strong> : {{Device}} <br/>
+          <Strong>New Status</Strong> : {{State}} <br/>
+        </h4>
+      </b-col>
+      <b-col class="p-3 "> 
+        <b-button @click="ChangeStatus()">SUBMIT CHANGE</b-button>
+      </b-col>
+    </b-row>
+  </b-container>
+</template>
+
+<script>
+
+import StatusAdminItem from '@/components/Status-Admin-Item.vue';
+import { db } from '../Config/firebase';
+
+export default {
+  name: 'Status-Admin',
+  data () {
+    return {
+      DN: '',
+      State:'',
+      Device:'',
+      NetworksObj: {},
+      date:'',
+      Status: [
+        {name:'On Time',value:'0'},{name:'15 Minutes',value:'15'},{name:'30 Minutes',value:'30'},
+        {name:'45 Minutes',value:'45'},{name:'1 Hour',value:'60'},{name:'1 Hour 15 Minutes',value:'75'},
+        {name:'1 Hour 30 Minutes',value:'90'},{name:'1 Hour 45 Minutes',value:'105'},
+        {name:'2 Hours',value:'120'},{name:'Down All Day',value:'1440'},{name:'Out of Clinic',value:'1441'}
+      ]//Status
+    }//Return
+  },//Data
+  components:{
+      StatusAdminItem
+  },//COMPONENT
+  firebase:{
+      NetworksObj: {
+        source:  db.ref('Networks'),
+        asObject: true
+      }//NetworkObj
+  },//Firebase
+  methods:{
+    ChangeStatus: function(){
+      db.ref('Networks/' + this.DN.substring(2) + '/' + this.Device).update({Status: this.State.split("|")[0],Description:this.State.split("|")[1]})
+      db.ref('Logs').push({'Time_Stamp' : Date(), 'Info':'UPDATING: Delivery Network:' + this.DN.substring(2) + ', Machine: ' + this.Device +', New Status:' + this.State})
+      }//ChangeStatus
+    }//Methods
+}//EXPORT
+</script>
+
