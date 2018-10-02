@@ -13,7 +13,7 @@ export default {
             sty: 0,
            Base: " my-2 text-light"
         }//RETURN
-    },//DATA
+    },//DATA Testing
     firebase: function() {
         return {
         NetworksObj: {
