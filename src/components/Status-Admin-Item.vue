@@ -20,7 +20,7 @@ import { db } from '../Config/firebase';
 
 export default {
     name: 'Status-Admin-Item',
-    props: ['status'],
+    props: ['status','loc'],
     data: function() {
         return {
             State:'',
@@ -44,7 +44,7 @@ export default {
     },//COMPUTED
     methods:{
         ChangeStatus: function(Name,State){
-            db.ref('Networks/' + this.$route.params.ad + '/' + Name).update({Status: State.split("|")[0],Description:State.split("|")[1]})
+            db.ref('Networks/' + this.$route.params.ad + '/' + this.loc).update({Status: State.split("|")[0],Description:State.split("|")[1]})
             db.ref('Logs').push({'Time_Stamp' : Date(), 'Info':'UPDATING: Delivery Network:' + this.$route.params.ad + ', Machine: ' + Name +', New Status:' + this.State})
         }//CHANGESTATUS
     }//METHODS

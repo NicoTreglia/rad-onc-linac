@@ -1,7 +1,7 @@
 <template>
   <b-container class="content-center">
     <h1 class="text-info">{{Navigation[this.$route.params.ad].value}}</h1>
-    <StatusAdminItem class="col-10 font-weight" v-for="item in NetworksObj[this.$route.params.ad]" :status="item" :key="item.key"/>
+    <StatusAdminItem class="col-10 font-weight" v-for="(item,i) in NetworksObj[this.$route.params.ad]" :status="item" :loc="i" :key="item.key"/>
     <!-- <b-row v-for="item in NetworksObj[this.$route.params.ad]" :status="item" :key="item.key">{{item}}</b-row> -->
     <b-button variant="danger" class="col-5 border border-warning" @click="Reset()">RESET ALL</b-button>
   </b-container>
