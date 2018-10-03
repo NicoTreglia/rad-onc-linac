@@ -4,7 +4,7 @@
       <b-button variant="info" v-if="this.$route.name!='home'" to="/"><h4>Locations</h4></b-button>
       <b-button variant="info" to="/Admin"><h4>Admin</h4></b-button>
     </b-navbar>
-    <img Class="my-5" alt="YNHH Logo" src="./assets/logo.png">
+    <img Class="mt-5" alt="YNHH Logo" src="./assets/logo.png">
     <!-- <b-jumbotron class="text-center" style="height: 150px">
       <template slot="header">Linac Status</template>
     </b-jumbotron> -->

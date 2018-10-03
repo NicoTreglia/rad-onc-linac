@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-row class="text-center text-info mb-5">
+    <b-row class="text-center text-info">
       <b-col class="col-3"/>
       <b-col class="col-6"><h1>Please Select a Location:</h1></b-col>
       <b-col class="col-3"/> 
