@@ -1,5 +1,5 @@
 <template>
-    <b-list-group-item style="border-radius: 20px" :class="styler" :to="this.Paths.Admin"><h5><strong>{{this.Paths.value}}</strong></h5></b-list-group-item>
+    <b-list-group-item style="border-radius: 20px" :class="styler" :to="this.Paths.admin"><h5><strong>{{this.Paths.value}}</strong></h5></b-list-group-item>
 </template>
 
 <script>

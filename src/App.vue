@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <b-navbar>
-      <b-button variant="info" v-if="this.$route.name!='home'" to="/">Locations</b-button>
-      <b-button variant="info" to="/Admin">Admin</b-button>
+      <b-button variant="info" v-if="this.$route.name!='home'" to="/"><h4>Locations</h4></b-button>
+      <b-button variant="info" to="/Admin"><h4>Admin</h4></b-button>
     </b-navbar>
     <img Class="my-5" alt="YNHH Logo" src="./assets/logo.png">
     <!-- <b-jumbotron class="text-center" style="height: 150px">

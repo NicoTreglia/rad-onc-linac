@@ -2,8 +2,8 @@
     <b-container class="content-center">
         <!-- If <= 30 == Green -->
          <b-row :class="styler" style="border-radius: 20px">
-            <b-col class="border border-info bg-light rounded mx-3">{{status.Name}}</b-col>
-            <b-col class="border border-info bg-light rounded mx-3">
+            <b-col class="border border-info bg-light mx-3" style="border-radius: 20px"><h4><strong>{{status.Name}}</strong></h4></b-col>
+            <b-col class="border border-info bg-light mx-3" style="border-radius: 20px">
                 <b-select v-model="State">
                     <option disabled value="">Please select one</option>
                     <option v-for="status in Status" :key="status.key">{{status.value}}|{{status.name}}</option>
