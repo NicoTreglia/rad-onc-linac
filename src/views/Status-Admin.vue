@@ -1,6 +1,6 @@
 <template>
   <b-container class="content-center">
-    <h3 class="text-info">{{Network}}</h3>
+    <h1 class="text-info">{{Navigation[this.$route.params.id].value}}</h1>
     <StatusAdminItem class="col-10 font-weight" v-for="item in NetworksObj[this.$route.params.ad]" :status="item" :key="item.key"/>
     <!-- <b-row v-for="item in NetworksObj[this.$route.params.ad]" :status="item" :key="item.key">{{item}}</b-row> -->
     <b-button variant="danger" class="col-5 border border-warning" @click="Reset()">RESET ALL</b-button>
@@ -16,16 +16,6 @@ export default {
   data () {
     return { }//RETURN
   },//DATA
-    computed:{
-    Network: function() {
-      if(this.$route.params.ad == 'GH'){ return "Smilow - Greenwich Hospital";}
-      else if(this.$route.params.ad == 'Hamden'){ return "Smilow - Hamden";}
-      else if(this.$route.params.ad == 'LM'){ return "Smilow - Lawerence Memorial Hospital";}
-      else if(this.$route.params.ad == 'SMC'){ return "Smilow - Shoreline Medical Center";}
-      else if(this.$route.params.ad == 'Trumbull'){ return "Smilow - Trumbull";}
-      else if(this.$route.params.ad == 'YSC'){ return "Smilow - New Haven";}
-    }//NETWORK
-  },//COMPUTED
   components:{
       StatusAdminItem
   },//COMPONENT
@@ -34,7 +24,11 @@ export default {
       NetworksObj: {
         source:  db.ref('Networks'),
         asObject: true
-      }//NETWORKOBJ
+      },//NETWORKOBJ
+      Navigation:{
+        source: db.ref('Navigation'),
+        asObject: true
+      }//NAVIGATION
     }//RETURN
   },//FIREBASE
   methods:{

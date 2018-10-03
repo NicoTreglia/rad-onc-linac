@@ -1,8 +1,8 @@
 <template>
 <b-container class="content-center">
     <b-row :class="styler" style="border-radius: 20px">
-        <b-col class="border border-info bg-light rounded mx-3">{{status.Name}}</b-col>
-        <b-col class="border border-info bg-light rounded mx-3">{{status.Description}}</b-col>
+        <b-col class="border border-info bg-light rounded mx-3"><strong><h4>{{status.Name}}</h4></strong></b-col>
+        <b-col class="border border-info bg-light rounded mx-3"><strong><h4>{{status.Description}}</h4></strong></b-col>
     </b-row>
 </b-container>
 </template>
