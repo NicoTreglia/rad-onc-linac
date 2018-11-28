@@ -1,19 +1,18 @@
 <template>
   <div id="app">
+    <!--Hold Navigation between views and footer that shows current data/time-->
     <b-navbar>
       <b-button variant="info" v-if="this.$route.name!='home'" to="/"><h4>Locations</h4></b-button>
       <b-button variant="info" to="/Admin"><h4>Admin</h4></b-button>
     </b-navbar>
     <img Class="mt-5" alt="YNHH Logo" src="./assets/logo.png">
-    <!-- <b-jumbotron class="text-center" style="height: 150px">
-      <template slot="header">Linac Status</template>
-    </b-jumbotron> -->
     <router-view/>   
     <b-card-footer>{{date}}</b-card-footer>
   </div> 
 </template>
 <script>
-import { Midnight, Switch, db } from './Config/firebase';
+// Connection to Midnight, Switch, and generic Database Instance
+import { Midnight, Switch, db } from './Config/firebase'; 
 export default {
   data: function() {
     return {
@@ -23,42 +22,37 @@ export default {
   },
   firebase:{
     Midnight: {
-      source:  Midnight,
+      source:  Midnight, //Connects to Midnight Connection
       asObject: true
     },//NetworkObj
     Switch: {
-      source:  Switch,
+      source:  Switch, //Connects to Switch Connection
       asObject: true
     }//NetworkObj
   },//firebase
-  created: function(){
+  created: function() { // --> Purpose to update time stamp for the footer
     this.timer = setInterval(this.getTime,30000)
     var d = parseInt(Date().split(" ")[2]);
-    if(this.Midnight['value'] != d){
+    if(this.Midnight['value'] != d) { // -->Will reset all the values to "On Time" on the start of a new day 
       Midnight.update({value: d})
       this.Reset()
     }
   },
   beforeDestroy: function() {
-    clearInterval(this.timer)
+    clearInterval(this.timer) // --> Resets timer
   },
   methods:{
-    getTime: function() {
+    getTime: function() { // --> Gets the Date
         this.date = Date();
-    },
-    Reset: function(){
+    }, //GETTIME
+    Reset: function(){ // --> Resets all locations and machines
     for(var loc in this.Switch){
-      if(loc != '.key'){
-        for(var n in this.Switch[loc]){
-          db.ref('Networks/' + loc + '/' + n).update({Status: 0, Description: "On Time"})
-        }
+      if(loc != '.key'){ for(var n in this.Switch[loc]){ db.ref('Networks/' + loc + '/' + n).update({Status: 0, Description: "On Time"})}}
       }
-    }
     db.ref('Logs').push({'Time_Stamp' : Date(), 'Info':'RESETING: ALL Delivery Network to ON TIME'})
-    }//ChangeStatus
-  },
-
-}
+    }//RESET
+  },//METHODS
+}//EXPORT
 </script>
 
 <style>

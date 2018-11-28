@@ -7,7 +7,8 @@
     </b-row>
     <div class="col-7 mx-auto">
       <b-list-group style="border-radius: 20px">
-        <!-- Links to all Locations with Linac Carts-->
+        <!-- Links to all Locations with Linac Carts -->
+        <!-- Populated using the Home-Item -->
         <HomeItem style="border-radius: 20px" v-for="(item,i) in this.Networks" :item="item" :index="i" :key="item"/>
       </b-list-group>
     </div>
@@ -15,7 +16,7 @@
 </template>
 
 <script>
-import HomeItem from '@/components/Home-Item.vue';
+import HomeItem from '@/components/Home-Item.vue'; //Imported from Components Folder
 export default {
   name: 'home',
   data () {
